@@ -1,0 +1,132 @@
+﻿@model OrderingApplication.Models.Client
+@inject OrderingApplication.Services.IFormDataService FormDataHelper
+
+<!-- Begin Page Wrapper -->
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Add a New Client <br />
+                <small>We're always happy to gain new customers.</small>
+            </h1>
+        </div>
+    </div>
+    @using (Html.BeginForm("NewClient", "Client", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-md-6">
+                @Html.ValidationSummary(false)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FirstName, "First Name")
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.FirstName, "Mano error zinute")
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.LastName)
+                    @Html.EditorFor(m => m.LastName)
+                    @*<label>Last Name</label>
+                        <input type="text" class="form-control" />*@
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CompanyName, "Company Name")
+                    @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Phone, "Phone Number")
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, "Email")
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ContactDate, "Contact Date")
+                    @Html.EditorFor(m => m.ContactDate)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ClientType, "Client Type")
+
+                    @Html.DropDownListFor(m => m.ClientType, FormDataHelper.GetClientTypes(), new { @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NearestLocation, "Nearest Location")
+
+                    @Html.DropDownListFor(m => m.NearestLocation, FormDataHelper.GetLocations(), new { @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                @await Component.InvokeAsync("InventoryWidget", new { threshold = 20 })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 form-group">
+                @Html.LabelFor(m => m.ContactDate, "Notes")
+                @Html.EditorFor(m => m.Notes)
+                @*<label>Notes</label>
+                    <textarea type="text" class="form-control" rows="5"></textarea>*@
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>Subscribe to:</label>
+                <div>
+                    @for (int i = 0; i < Model.EmailPromos.Count; i++)
+                {
+                        @Html.CheckBoxFor(m => m.EmailPromos[i].IsSubscribed)
+                        <span>@Model.EmailPromos[i].Title</span>
+                        @Html.HiddenFor(m => m.EmailPromos[i].Id)
+                        @Html.HiddenFor(m => m.EmailPromos[i].Title)
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Billing Address</h3>
+                @Html.EditorFor(x => x.BillingAddress)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Mailing Address</h3>
+                <div class="row">
+                    @*@Html.EditorFor(x => x.MailingAddress)
+                        Galima butu nadot tik sita vietoj apatinio kodo*@
+                    <div class="col-md-6 form-group">
+                        @Html.LabelFor(m => m.MailingAddress.Street, "Street")
+                        @Html.TextBoxFor(m => m.MailingAddress.Street, new { @class = "form-control" })
+
+                    </div>
+                    <div class="col-md-6 form-group">
+                        @Html.LabelFor(m => m.MailingAddress.City, "City")
+                        @Html.TextBoxFor(m => m.MailingAddress.City, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        @Html.LabelFor(m => m.MailingAddress.State, "State")
+                        @Html.TextBoxFor(m => m.MailingAddress.State, new { @class = "form-control" })
+
+                    </div>
+                    <div class="col-md-6 form-group">
+                        @Html.LabelFor(m => m.MailingAddress.Zip, "Zip Code")
+                        @Html.TextBoxFor(m => m.MailingAddress.Zip, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <input type="submit" class="pull-right btn btn-primary" />
+            </div>
+        </div>
+
+    }
+</div>
+
+@section Footer{
+    <p>Nusiusk naujam klientui welcomome package</p>
+}

@@ -1,0 +1,24 @@
+﻿@model OrderingApplication.Models.Address
+<div class="row">
+    <div class="col-md-6 form-group">
+        @Html.LabelFor(m => m.Street, "Street")
+        @Html.TextBoxFor(m => m.Street, new { @class = "form-control" })
+
+    </div>
+    <div class="col-md-6 form-group">
+        @Html.LabelFor(m => m.City, "City")
+        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 form-group">
+        @Html.LabelFor(m => m.State, "State")
+        @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+
+    </div>
+    <div class="col-md-6 form-group">
+        @Html.LabelFor(m => m.Zip, "Zip Code")
+        @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
+    </div>
+</div>
